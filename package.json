@@ -1,0 +1,33 @@
+{
+  "name": "npmrc-builder-project",
+  "version": "1.0.0",
+  "description": "This lib helps to create the .npmrc file with auth token. It's much easier to publish with it.",
+  "main": "src/index.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "postbuild": "shx cp src/package.json dist && shx cp src/README.md dist && cd dist && npm pack",
+    "restart": "cd demo && npm i && cd.. && npm run start:ts",
+    "start": "node demo/index.js",
+    "start:ts": "nodemon demo/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VolAndriienko/npmrc-builder.git"
+  },
+  "keywords": [
+    "npmrc"
+  ],
+  "author": "volandriienko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VolAndriienko/npmrc-builder/issues"
+  },
+  "homepage": "https://github.com/VolAndriienko/npmrc-builder#readme",
+  "devDependencies": {
+    "shx": "^0.3.3"
+  },
+  "dependencies": {
+    "@types/node": "^16.10.5"
+  }
+}
