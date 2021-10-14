@@ -1,6 +1,6 @@
 {
   "name": "npmrc-builder",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "This lib helps to create the .npmrc file with auth token. It's much easier to publish with it.",
   "main": "index.js",
   "typings": "index.d.ts",
