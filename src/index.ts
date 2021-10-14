@@ -43,9 +43,17 @@ function askQuestions(questions: string[]) {
   }
 }
 
+function isRegistryUrlValue(value) {
+  return !!value && value.length > 1;
+}
+
+function isScopeValue(value) {
+  return !!value && value.length > 1;
+}
+
 function getScope(scopeValue: string): string {
   let scope = '';
-  if (scopeValue) {
+  if (isScopeValue(scopeValue)) {
     if (!scopeValue.startsWith('@')) {
       scopeValue = '@' + scopeValue;
     }
@@ -56,13 +64,13 @@ function getScope(scopeValue: string): string {
 }
 
 function getRegistryUrl(registryUrlValue: string): string {
-  const registryUrl = registryUrlValue ? registryUrlValue.split('//').pop() : '';
+  const registryUrl = isRegistryUrlValue(registryUrlValue) ? registryUrlValue.split('//').pop() : '';
 
   return registryUrl
 }
 
 function getProtocol(registryUrlValue: string): string {
-  const protocol = registryUrlValue && (registryUrlValue.indexOf('://') > -1 ? registryUrlValue.split('//').shift() : 'http:') + '//';
+  const protocol = isRegistryUrlValue(registryUrlValue) && (registryUrlValue.indexOf('://') > -1 ? registryUrlValue.split('//').shift() : 'http:') + '//';
 
   return protocol;
 }
@@ -88,11 +96,15 @@ function createNpmrc() {
   const customRegistryUrl = getNextInputValue();
   const customScope = getNextInputValue();
 
-  const scopeValue = customScope || libScope;
-  const registryUrlValue = customRegistryUrl || libRegistryUrl;
   const isUserNameAndPassword = !!userName && !!password;
+  const scopeValue = customScope || libScope;
+  let registryUrlValue = customRegistryUrl || libRegistryUrl;
 
-  if (!scopeValue) {
+  if (registryUrlValue === 'npm') {
+    registryUrlValue = 'https://registry.npmjs.org';
+  }
+
+  if (!isScopeValue(scopeValue)) {
     console.log('Scope was not specified')
   }
 

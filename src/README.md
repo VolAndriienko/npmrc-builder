@@ -48,6 +48,18 @@ nodemon npmrc-builder.ts
 
 Please check info about [nodemon](https://www.npmjs.com/package/nodemon), if you have no idea about it.
 
+>Warning
+
+Also, you can see next error after running script:
+
+```
+Typescript: Cannot use import statement outside a module
+```
+
+Most possibly you have `tsconfig.json` in root folder with incorrect settings for this library.
+
+There are 2 quick options in this case - **use Javascript version** or **remove/rename/change** `tsconfig.json`.
+
 ### Javascript usage 
 
 Create file npmrc-builder.js with next code:
@@ -71,3 +83,6 @@ You will be prompted to enter `username`, `password`, `registry` and `scope`.
 
 The result is generated .npmrc file inside the library or in the root of project if library doesn't exist.
 
+>To avoid using any registry even, default one, type any 1 symbol as answer for question about registry URL (the same works for scope as well).
+
+>To use https://registry.npmjs.org as registry URL - type `npm` as answer.

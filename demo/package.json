@@ -10,6 +10,6 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "npmrc-builder": "file:../dist/npmrc-builder-0.0.2.tgz"
+    "npmrc-builder": "file:../dist/npmrc-builder-0.0.3.tgz"
   }
 }
