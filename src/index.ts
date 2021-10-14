@@ -56,27 +56,27 @@ function getScope(scopeValue: string): string {
 }
 
 function getRegistryUrl(registryUrlValue: string): string {
-  const registryUrl = registryUrlValue.split('//').pop();
+  const registryUrl = registryUrlValue ? registryUrlValue.split('//').pop() : '';
 
   return registryUrl
 }
 
 function getProtocol(registryUrlValue: string): string {
-  const protocol = (registryUrlValue.indexOf('://') > -1 ? registryUrlValue.split('//').shift() : 'http:') + '//';
+  const protocol = registryUrlValue && (registryUrlValue.indexOf('://') > -1 ? registryUrlValue.split('//').shift() : 'http:') + '//';
 
   return protocol;
 }
 
 function getAuthToken(userName: string, password: string): string {
-  const authToken = Buffer.from(`${userName}:${password}`).toString('base64');;
+  const authToken = Buffer.from(`${userName}:${password}`).toString('base64');
 
   return authToken;
 }
 
 function getNpmrcFileText({ registryUrl, scope, authToken, protocol }) {
-  const result = `//${registryUrl}:always-auth=true
+  const result = registryUrl ? `//${registryUrl}:always-auth=true
 //${registryUrl}:_auth=${authToken}
-${scope}registry=${protocol}${registryUrl}`;
+${scope}registry=${protocol}${registryUrl}` : `_auth=${authToken}`;
 
   return result;
 }
@@ -96,10 +96,7 @@ function createNpmrc() {
     console.log('Scope was not specified')
   }
 
-  if (!registryUrlValue) {
-    console.error('No registry url specified');
-  }
-  else if (!isUserNameAndPassword) {
+  if (!isUserNameAndPassword) {
     console.error('Error. Please specify username and password as arguments.');
   }
   else {
@@ -110,7 +107,11 @@ function createNpmrc() {
     const text = getNpmrcFileText({ scope, registryUrl, protocol, authToken });
 
     appendFileSync(`${libraryPath}.npmrc`, text, { flag: 'w' });
-    console.log('\nAuth token is created\n.npmrc is created\nExiting, good luck...\n');
+
+    console.log('\nAuth token is created\n.npmrc is created\n');
+    console.log(`\nFile content:\n`);
+    console.log(`\n${text}\n`);
+    console.log(`\nExiting, good luck...\n`);
   }
 }
 

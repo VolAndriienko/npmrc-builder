@@ -7,9 +7,11 @@
     "prebuild": "rimraf dist",
     "build": "tsc",
     "postbuild": "shx cp src/package.json dist && shx cp src/README.md dist && cd dist && npm pack",
-    "restart": "cd demo && npm i && cd.. && npm run start:ts",
+    "restart": "cd demo && shx rm -rf node_modules && shx rm package-lock.json && npm i && cd.. && npm run start:ts",
     "start": "node demo/index.js",
-    "start:ts": "nodemon demo/index.ts"
+    "start:ts": "nodemon demo/index.ts",
+    "publish": "cd dist && npm publish",
+    "publish:auth": "shx cp .npmrc dist && cd dist && npm publish"
   },
   "repository": {
     "type": "git",

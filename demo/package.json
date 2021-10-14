@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Just want to test before publish",
   "main": "index.js",
-  "scripts": {
-    "preinstall": "rimraf node_modules && rimraf package-lock.json"
-  },
   "author": "",
   "repository": {
     "type": "git",
@@ -13,6 +10,6 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "npmrc-builder": "file:../dist/npmrc-builder-1.0.0.tgz"
+    "npmrc-builder": "file:../dist/npmrc-builder-0.0.2.tgz"
   }
 }
